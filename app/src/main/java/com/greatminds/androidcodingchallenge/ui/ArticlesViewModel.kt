@@ -39,15 +39,17 @@ class ArticlesViewModel @Inject constructor(
   fun onEvent(event: ArticlesUiEvent) {
     when (event) {
       is ArticlesUiEvent.ItemClick -> {
-        _uiState.value = ArticlesUiState.Success(
-          items = (_uiState.value as ArticlesUiState.Success).items.map { item ->
+        with(_uiState.value as ArticlesUiState.Success) {
+          items.map { item ->
             if (item === event.item) {
-              item.copy(isExpanded = item.isExpanded.not())
+              item.copy(isExpanded = !item.isExpanded)
             } else {
               item
             }
-          },
-        )
+          }
+        }.let {
+          _uiState.tryEmit(ArticlesUiState.Success(it))
+        }
       }
 
       is ArticlesUiEvent.Refresh -> {
