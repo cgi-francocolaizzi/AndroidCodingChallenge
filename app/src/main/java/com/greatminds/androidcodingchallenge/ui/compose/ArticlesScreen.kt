@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.greatminds.androidcodingchallenge.model.Article
@@ -64,12 +65,14 @@ fun ArticleComposable(
     elevation = cardElevation(defaultElevation = 10.dp)
   ) {
     Column(
-      modifier = Modifier.fillMaxWidth().height(
-        if (article.isExpanded) { 100.dp } else { 50.dp }
-      )
+      modifier = Modifier.fillMaxWidth()
+        .height(
+          if (article.isExpanded) { 100.dp } else { 50.dp }
+        )
+        .padding(horizontal = 4.dp)
     ) {
       Text(modifier = Modifier.fillMaxWidth(), text = article.userId)
-      Text(modifier = Modifier.fillMaxWidth(), text = article.title)
+      Text(modifier = Modifier.fillMaxWidth(), text = article.title, fontStyle = FontStyle.Italic)
       Text(modifier = Modifier.fillMaxWidth(), text = article.body)
     }
   }
